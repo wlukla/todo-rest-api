@@ -11,9 +11,21 @@ type Repository struct {
 	Todos []Todo
 }
 
+// Getter ...
+type Getter interface {
+	GetAll()
+}
+
+// Adder ...
+type Adder interface {
+	Add()
+}
+
 // New ...
 func New() *Repository {
-	return &Repository{}
+	return &Repository{
+		Todos: []Todo{},
+	}
 }
 
 // Add ...
