@@ -1,15 +1,16 @@
 package main
 
 import (
-	"todo-rest-api/httpd/handler"
-
-	"github.com/gin-gonic/gin"
+	"fmt"
+	"todo-rest-api/platform/todo"
 )
 
 func main() {
-	r := gin.Default()
+	todos := todo.New()
 
-	r.GET("/ping", handler.PingGET())
+	fmt.Println(todos)
 
-	r.Run()
+	todos.Add(todo.Todo{"Hello", "How are you?"})
+
+	fmt.Println(todos)
 }
