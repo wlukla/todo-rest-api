@@ -13,12 +13,12 @@ type Repository struct {
 
 // Getter ...
 type Getter interface {
-	GetAll()
+	GetAll() []Todo
 }
 
 // Adder ...
 type Adder interface {
-	Add()
+	Add(todo Todo)
 }
 
 // New ...

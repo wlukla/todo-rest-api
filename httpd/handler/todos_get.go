@@ -8,7 +8,7 @@ import (
 )
 
 // TodosGET ...
-func TodosGET(todos *todo.Repository) gin.HandlerFunc {
+func TodosGET(todos todo.Getter) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.JSON(http.StatusOK, todos.GetAll())
 	}

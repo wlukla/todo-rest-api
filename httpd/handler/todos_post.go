@@ -13,7 +13,7 @@ type todosPostRequest struct {
 }
 
 // TodosPOST ...
-func TodosPOST(todos *todo.Repository) gin.HandlerFunc {
+func TodosPOST(todos todo.Adder) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		requestBody := todosPostRequest{}
 
