@@ -29,6 +29,8 @@ func TodosPOST(todos todo.Adder) gin.HandlerFunc {
 			Description: requestBody.Description,
 		}
 
+		newTodo.BeforeCreate()
+
 		todos.Add(newTodo)
 
 		c.Status(http.StatusNoContent)
