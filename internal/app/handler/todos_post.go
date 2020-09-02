@@ -2,7 +2,8 @@ package handler
 
 import (
 	"net/http"
-	"todo-rest-api/platform/todo"
+	"todo-rest-api/internal/app/model"
+	"todo-rest-api/internal/app/store/sqlstore"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +14,7 @@ type todosPostRequest struct {
 }
 
 // TodosPOST ...
-func TodosPOST(todos todo.Adder) gin.HandlerFunc {
+func TodosPOST(todoRepo *sqlstore.TodoRepository) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		requestBody := todosPostRequest{}
 
@@ -24,14 +25,13 @@ func TodosPOST(todos todo.Adder) gin.HandlerFunc {
 
 		c.Bind(requestBody)
 
-		newTodo := todo.Todo{
+		newTodo := model.Todo{
 			Title:       requestBody.Title,
 			Description: requestBody.Description,
 		}
-
 		newTodo.BeforeCreate()
 
-		todos.Add(newTodo)
+		todoRepo.Create(&newTodo)
 
 		c.Status(http.StatusNoContent)
 	}

@@ -2,11 +2,11 @@ package apiserver
 
 import (
 	"database/sql"
-	"todo-rest-api/internal/handler"
-	sqlstore "todo-rest-api/internal/store"
-	"todo-rest-api/platform/todo"
+	"todo-rest-api/internal/app/handler"
+	"todo-rest-api/internal/app/store/sqlstore"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
 )
 
 // Start ...
@@ -20,11 +20,13 @@ func Start(config *Config) error {
 	store := sqlstore.New(db)
 
 	r := gin.Default()
-	todoRepo := todo.New()
+	todoRepo := &sqlstore.TodoRepository{
+		Store: store,
+	}
 
 	r.GET("/ping", handler.PingGET())
-	r.GET("/todos", handler.TodosGET(todos))
-	r.POST("/todos", handler.TodosPOST(todos))
+	r.GET("/todos", handler.TodosGET(todoRepo))
+	r.POST("/todos", handler.TodosPOST(todoRepo))
 
 	r.Run()
 

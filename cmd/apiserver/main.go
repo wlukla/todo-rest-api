@@ -3,11 +3,10 @@ package main
 import (
 	"flag"
 	"log"
-	"todo-rest-api/httpd/handler"
-	"todo-rest-api/platform/todo"
+
+	"todo-rest-api/internal/app/apiserver"
 
 	"github.com/BurntSushi/toml"
-	"github.com/gin-gonic/gin"
 )
 
 var configPath string

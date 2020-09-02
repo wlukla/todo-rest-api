@@ -1,5 +1,5 @@
 dev:
-	go run httpd/main.go
+	go run cmd/apiserver/main.go
 
 test:
 	go test -cover ./...
