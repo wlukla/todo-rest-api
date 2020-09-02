@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"todo-rest-api/internal/app/model"
 	"todo-rest-api/internal/app/store/sqlstore"
@@ -9,8 +10,8 @@ import (
 )
 
 type todosPostRequest struct {
-	Title       string `json:"title"`
-	Description string `json:"description"`
+	Title       string `json:"title" binding:"required"`
+	Description string `json:"description" binding:"required"`
 }
 
 // TodosPOST ...
@@ -19,11 +20,10 @@ func TodosPOST(todoRepo *sqlstore.TodoRepository) gin.HandlerFunc {
 		requestBody := todosPostRequest{}
 
 		if err := c.ShouldBindJSON(&requestBody); err != nil {
+			fmt.Println(err.Error())
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-
-		c.Bind(requestBody)
 
 		newTodo := model.Todo{
 			Title:       requestBody.Title,
