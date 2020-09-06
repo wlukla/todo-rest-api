@@ -6,7 +6,7 @@ import (
 	"todo-rest-api/internal/app/store/sqlstore"
 
 	"github.com/gin-gonic/gin"
-	_ "github.com/lib/pq"
+	_ "github.com/lib/pq" // postgres driver
 )
 
 // Start ...
@@ -23,10 +23,14 @@ func Start(config *Config) error {
 	todoRepo := &sqlstore.TodoRepository{
 		Store: store,
 	}
+	userRepo := &sqlstore.UserRepository{
+		Store: store,
+	}
 
 	r.GET("/ping", handler.PingGET())
 	r.GET("/todos", handler.TodosGET(todoRepo))
 	r.POST("/todos", handler.TodosPOST(todoRepo))
+	r.POST("/users", handler.UsersPOST(userRepo))
 
 	r.Run()
 

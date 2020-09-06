@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"todo-rest-api/internal/app/model"
 	"todo-rest-api/internal/app/store/sqlstore"
@@ -20,7 +19,6 @@ func TodosPOST(todoRepo *sqlstore.TodoRepository) gin.HandlerFunc {
 		requestBody := todosPostRequest{}
 
 		if err := c.ShouldBindJSON(&requestBody); err != nil {
-			fmt.Println(err.Error())
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
