@@ -1,12 +1,25 @@
 <template>
   <div id="app">
+    <header>
+      <h1>{{ heading }}</h1>
+    </header>
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">Home</router-link>
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      heading: "This is a fullstack todo app"
+    };
+  }
+};
+</script>
 
 <style>
 #app {
@@ -22,6 +35,7 @@
 }
 
 #nav a {
+  margin: 0 20px;
   font-weight: bold;
   color: #2c3e50;
 }
